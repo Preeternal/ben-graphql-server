@@ -8,6 +8,8 @@ const main = async () => {
     dbName: 'lireddit',
     type: 'postgresql',
     debug: !__prod__,
+    user: 'postgres',
+    password: 'myPassword',
   });
   const post = orm.em.create(Post, { title: 'my first post' });
   await orm.em.persistAndFlush(post);
