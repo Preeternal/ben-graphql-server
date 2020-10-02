@@ -1,9 +1,11 @@
 {
   "cSpell.ignoreWords": [
+    "jsonb",
     "lireddit",
     "mikro",
     "mikro orm",
     "orm",
-    "postgresql"
+    "postgresql",
+    "timestamptz"
   ]
 }
