@@ -39,11 +39,31 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => UserResponse)
   async register(
     @Arg('options') options: UsernamePasswordInput,
     @Ctx() { em }: MyContext
-  ): Promise<User | null> {
+  ): Promise<UserResponse> {
+    if (options.username.length <= 2) {
+      return {
+        errors: [
+          {
+            field: 'username',
+            message: 'length must be greater than 2',
+          },
+        ],
+      };
+    }
+    if (options.password.length <= 3) {
+      return {
+        errors: [
+          {
+            field: 'password',
+            message: 'length must be greater than 3',
+          },
+        ],
+      };
+    }
     const hashedPassword = await argon2.hash(options.password);
     try {
       const user = em.create(User, {
@@ -51,11 +71,18 @@ export class UserResolver {
         password: hashedPassword,
       });
       await em.persistAndFlush(user);
-      return user;
+      return { user };
     } catch (e) {
       console.error(e);
       em.clear();
-      return null;
+      return {
+        errors: [
+          {
+            field: e.code,
+            message: e.detail,
+          },
+        ],
+      };
     }
   }
 
