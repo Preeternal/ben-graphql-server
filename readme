@@ -1,1 +1,2 @@
 yarn mikro-orm migration:create 
+redis-server
