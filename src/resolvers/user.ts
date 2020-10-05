@@ -20,15 +20,17 @@ export class UserResolver {
     @Ctx() { em }: MyContext
   ): Promise<User | null> {
     const hashedPassword = await argon2.hash(options.password);
-    const user = em.create(User, {
-      username: options.username,
-      password: hashedPassword,
-    });
     try {
+      const user = em.create(User, {
+        username: options.username,
+        password: hashedPassword,
+      });
       await em.persistAndFlush(user);
-    } catch {
+      return user;
+    } catch (e) {
+      console.error(e);
+      em.clear();
       return null;
     }
-    return user;
   }
 }
