@@ -44,6 +44,8 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req, em }: MyContext): Promise<User | null> {
     // you are not logged in
+
+    console.log('SESSION', req.session);
     if (!req.session?.userId) {
       return null;
     }
