@@ -29,6 +29,7 @@ const main = async () => {
         client: redisClient,
         // disableTTL: true,
         disableTouch: true,
+        prefix: 'myApp:',
       }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
