@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EntityManager, IDatabaseDriver, Connection } from '@mikro-orm/core';
 import { Request, Response } from 'express';
 
