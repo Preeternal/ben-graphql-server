@@ -45,7 +45,7 @@ export class UserResolver {
   async me(@Ctx() { req, em }: MyContext): Promise<User | null> {
     // you are not logged in
 
-    console.log('SESSION', req.session);
+    console.log('TRY GET ME', req.session);
     if (!req.session?.userId) {
       return null;
     }
@@ -139,6 +139,7 @@ export class UserResolver {
       };
     }
     req.session!.userId = user.id;
+    console.log('LOGIN SESSION', req.session);
 
     return {
       user,
