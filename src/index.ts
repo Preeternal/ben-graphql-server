@@ -23,7 +23,9 @@ const main = async () => {
   const app = express();
   const RedisStore = connectRedis(session);
   const redisClient = redis.createClient();
+  // app.set('trust proxy', 1);
   app.use(
+    // '/',
     cors({
       origin: 'http://localhost:3000',
       credentials: true,
@@ -45,8 +47,8 @@ const main = async () => {
         sameSite: 'lax', // csrf
         secure: __prod__, // cookie only works in https
       },
-      saveUninitialized: false,
       secret: 'session secret43555',
+      saveUninitialized: false,
       resave: false,
     })
   );
