@@ -53,6 +53,11 @@ export class UserResolver {
     return user;
   }
 
+  @Query(() => [User])
+  async users(@Ctx() { em }: MyContext): Promise<User[]> {
+    return await em.find(User, {});
+  }
+
   @Mutation(() => UserResponse)
   async register(
     @Arg('options') options: UsernamePasswordInput,
