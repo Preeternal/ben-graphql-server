@@ -13,6 +13,7 @@ import argon2 from 'argon2';
 
 import { User } from '../entities/User';
 import { MyContext } from 'src/types';
+// import { EntityManager } from '@mikro-orm/postgresql';
 
 @InputType()
 class UsernamePasswordInput {
@@ -90,6 +91,12 @@ export class UserResolver {
     });
     try {
       await em.persistAndFlush(user);
+      // (em as EntityManager).createQueryBuilder(User).getKnexQuery().insert({
+      //   username: options.username,
+      //   password: hashedPassword,
+      //   createdAt: new Date(),
+      //   updateAt: new Date(),
+      // });
     } catch (e) {
       console.error(e);
       em.clear();
