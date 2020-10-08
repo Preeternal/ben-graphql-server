@@ -89,14 +89,20 @@ export class UserResolver {
       username: options.username,
       password: hashedPassword,
     });
+    // let user;
     try {
       await em.persistAndFlush(user);
-      // (em as EntityManager).createQueryBuilder(User).getKnexQuery().insert({
-      //   username: options.username,
-      //   password: hashedPassword,
-      //   createdAt: new Date(),
-      //   updateAt: new Date(),
-      // });
+      // const result = await (em as EntityManager)
+      //   .createQueryBuilder(User)
+      //   .getKnexQuery()
+      //   .insert({
+      //     username: options.username,
+      //     password: hashedPassword,
+      //     created_At: new Date(),
+      //     updated_At: new Date(),
+      //   })
+      //   .returning('*');
+      //   user = result[0]
     } catch (e) {
       console.error(e);
       em.clear();
