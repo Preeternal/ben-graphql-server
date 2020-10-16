@@ -14,7 +14,7 @@ import { User } from '../entities/User';
 import { MyContext } from 'src/types';
 import { COOKIE_NAME } from '../constants';
 import { UsernamePasswordInput } from './UsernamePasswordInput';
-import { validateRegister } from 'src/utils/validateRegister';
+import { validateRegister } from '../utils/validateRegister';
 
 @ObjectType()
 class FieldError {
