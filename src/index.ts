@@ -15,9 +15,11 @@ import { PostResolver } from './resolvers/post';
 import { UserResolver } from './resolvers/user';
 import { COOKIE_NAME, __prod__ } from './constants';
 import { MyContext } from './types';
+// import { User } from './entities/User';
 
 const main = async () => {
   const orm = await MikroORM.init(microConfig);
+  // await orm.em.nativeDelete(User, {});
   await orm.getMigrator().up();
 
   const app = express();
