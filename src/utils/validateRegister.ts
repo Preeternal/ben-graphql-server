@@ -1,7 +1,13 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { UsernamePasswordInput } from 'src/resolvers/UsernamePasswordInput';
 
-export const validateRegister = (options: UsernamePasswordInput) => {
+export const validateRegister = (
+  options: UsernamePasswordInput
+):
+  | {
+      field: string;
+      message: string;
+    }[]
+  | null => {
   if (!options.email.includes('@')) {
     return [
       {
