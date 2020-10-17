@@ -16,7 +16,7 @@ import { MyContext } from 'src/types';
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from '../constants';
 import { UsernamePasswordInput } from './UsernamePasswordInput';
 import { validateRegister } from '../utils/validateRegister';
-import { sendEmail } from 'src/utils/sendEmail';
+import { sendEmail } from '../utils/sendEmail';
 
 @ObjectType()
 class FieldError {

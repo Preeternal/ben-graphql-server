@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import nodemailer from 'nodemailer';
 
 // async..await is not allowed in global scope, must use a wrapper
