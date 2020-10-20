@@ -1,6 +1,27 @@
-import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { isAuth } from '../middleware/isAuth';
+import { MyContext } from '../types';
+import {
+  Arg,
+  Ctx,
+  Field,
+  InputType,
+  Int,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from 'type-graphql';
 
 import { Post } from '../entities/Post';
+
+@InputType()
+class PostInput {
+  @Field()
+  title: string;
+  @Field()
+  text: string;
+}
 
 @Resolver()
 export class PostResolver {
@@ -15,11 +36,15 @@ export class PostResolver {
   }
 
   @Mutation(() => Post, { nullable: true })
+  @UseMiddleware(isAuth)
   async createPost(
-    @Arg('title', () => String) title: string
+    @Arg('input') input: PostInput,
+    @Ctx() { req }: MyContext
   ): Promise<Post | null> {
-    // 2 sql queries
-    return await Post.create({ title }).save();
+    return await Post.create({
+      ...input,
+      creatorId: req.session!.userId,
+    }).save();
   }
 
   @Mutation(() => Post, { nullable: true })
