@@ -16,7 +16,7 @@ import { COOKIE_NAME, __prod__ } from './constants';
 import { MyContext } from './types';
 import { Post } from './entities/Post';
 import { User } from './entities/User';
-// import { User } from './entities/User';
+import path from 'path';
 
 const main = async () => {
   const conn = await createConnection({
@@ -26,8 +26,10 @@ const main = async () => {
     password: 'myPassword',
     logging: true,
     synchronize: true,
+    migrations: [path.join(__dirname, './migrations/*')],
     entities: [Post, User],
   });
+  await conn.runMigrations();
 
   const app = express();
   const RedisStore = connectRedis(session);
