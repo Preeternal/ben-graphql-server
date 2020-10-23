@@ -28,24 +28,23 @@ class PostInput {
 export class PostResolver {
   @Query(() => [Post])
   async posts(
-    @Arg('limit') limit: number,
+    @Arg('limit', () => Int) limit: number,
     @Arg('cursor', () => String, { nullable: true }) cursor: string | null
   ): Promise<Post[]> {
     const realLimit = Math.min(50, limit);
-    const timeStamp = Date.parse(cursor || '0');
-    console.log(Date.parse('2020-10-20T11:58:20.240Z'), timeStamp);
-    return await getConnection()
+
+    const qb = getConnection()
       .getRepository(Post)
       .createQueryBuilder('p')
-      // .where('"createdAt"::timestamp > :timeStamp', { timeStamp })
-      .where('"createdAt"::timestamp > :cursor', { cursor })
-      .orderBy(
-        '"createdAt"'
-        // , 'DESC'
-      )
-      .limit(realLimit)
-      .getMany();
-    // return await Post.find();
+      .orderBy('"createdAt"', 'DESC')
+      .limit(realLimit);
+
+    if (cursor) {
+      qb.where('p.createdAt < :cursor', {
+        cursor: new Date(parseInt(cursor)),
+      });
+    }
+    return await qb.getMany();
   }
 
   @Query(() => Post, { nullable: true })
