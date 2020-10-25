@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class FakePosts1603452578341 implements MigrationInterface {
@@ -294,5 +296,5 @@ export class FakePosts1603452578341 implements MigrationInterface {
           `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(_: QueryRunner): Promise<void> {}
 }
