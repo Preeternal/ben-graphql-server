@@ -53,18 +53,22 @@ export class PostResolver {
     const isUpdoot = value != -1;
     const realValue = isUpdoot ? 1 : -1;
     const userId = req.session!.userId;
-    await Updoot.insert({
-      userId,
-      postId,
-      value: realValue,
-    });
+    // await Updoot.insert({
+    //   userId,
+    //   postId,
+    //   value: realValue,
+    // });
     await getConnection().query(
       `
+      START TRANSACTION;
+      insert into updoot ("userId","postId",value)
+      values (${userId},${postId},${realValue});
+
       update post
-      set points = points + $1
-      where id = $2
-    `,
-      [realValue, postId]
+      set points = points + ${realValue}
+      where id = ${postId};
+      COMMIT;
+    `
     );
     return true;
   }
@@ -115,7 +119,6 @@ export class PostResolver {
     //   });
     // }
     // const posts = await qb.getMany();
-    console.log('posts:', posts);
     return {
       posts: posts.slice(0, realLimit),
       hasMore: posts.length === realLimitPlusOne,
