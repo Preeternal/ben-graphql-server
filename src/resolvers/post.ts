@@ -18,7 +18,6 @@ import {
 
 import { Post } from '../entities/Post';
 import { getConnection } from 'typeorm';
-import { Updoot } from '../entities/Updoot';
 
 @InputType()
 class PostInput {
