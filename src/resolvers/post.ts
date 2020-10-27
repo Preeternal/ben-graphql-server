@@ -19,7 +19,6 @@ import {
 import { Post } from '../entities/Post';
 import { getConnection } from 'typeorm';
 import { Updoot } from '../entities/Updoot';
-import { registerDecorator } from 'class-validator';
 
 @InputType()
 class PostInput {
