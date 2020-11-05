@@ -13,6 +13,7 @@ RUN yarn
 
 # копируем исходный код
 COPY . .
+COPY .env.production .env
 
 RUN yarn build
 
