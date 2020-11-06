@@ -1,3 +1,4 @@
 yarn mikro-orm migration:create 
 redis-server
 docker build -t preeternal/lireddit:test .
+docker build -t preeternal/lireddit:1 .
