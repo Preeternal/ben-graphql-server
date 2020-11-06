@@ -29,7 +29,7 @@ const main = async () => {
     // password: 'myPassword',
     url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    // synchronize: true,
     migrations: [path.join(__dirname, './migrations/*')],
     entities: [Post, User, Updoot],
   });
@@ -40,7 +40,7 @@ const main = async () => {
   const app = express();
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);
-  // app.set('trust proxy', 1);
+  app.set('proxy', 1);
   app.use(
     // '/',
     cors({
